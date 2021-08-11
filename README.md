@@ -1,2 +1,0 @@
-# DiscordBotHabibs
-Habib's bot
