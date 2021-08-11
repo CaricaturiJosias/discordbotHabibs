@@ -1,3 +1,4 @@
+#This is a discord bot made to annoy a friend, please be gentle 
 import discord, os, discord.utils, time, psycopg2, string
 from HabibsDB import conexao, inicio
 from dotenv import load_dotenv
@@ -46,6 +47,26 @@ async def urbs(message):
         await message.channel.send(f'Você não tem permissão para usar esse comando <@{message.author.id}>, bata no vitor se concorda/discorda disso')
 
 @bot.command(pass_context = True)
+@commands.has_any_role(437122446890631168, 437122570563878915, 804899470864023572, 731743081812066334, 447916692912472064, 736291367302594704, 663501855657164814, 374020042360094730)
+async def mov(ctx, arg):
+    try:
+        canal_antes = ctx.message.author.voice.channel
+        guild = ctx.guild
+        channel = guild.get_channel(206234863747989505)
+        idVitima = (((arg.split('!'))[1]).split('>'))[0]
+        vitima = await guild.fetch_member(int(idVitima))
+        await vitima.move_to(channel)
+        time.sleep(2)
+        await vitima.move_to(canal_antes)
+    except:
+        print(f"Não foi possível mover o usuario {vitima.name}")
+
+@mov.error
+async def bemtevi(ctx, error):
+    await ctx.channel.send(f"Você não possui a permissão necessária para fazer isso, bata no <@{206225035332026368}>"+
+                            " para tentar conseguir a permissão")
+
+@bot.command(pass_context = True)
 async def vitor(ctx):
     try:
         canal_antes = ctx.message.author.voice.channel
@@ -64,16 +85,6 @@ async def renan(ctx):
     guild = ctx.guild
     channel = guild.get_channel(206234863747989505)
     vitima = await guild.fetch_member(206225185605419008)
-    await vitima.move_to(channel)
-    time.sleep(2)
-    await vitima.move_to(canal_antes)
-
-@bot.command(pass_context = True)
-async def jonathan(ctx):
-    canal_antes = ctx.message.author.voice.channel
-    guild = ctx.guild
-    channel = guild.get_channel(206234863747989505)
-    vitima = await guild.fetch_member(266301388059967489)
     await vitima.move_to(channel)
     time.sleep(2)
     await vitima.move_to(canal_antes)
@@ -126,7 +137,7 @@ async def bemtevi(ctx, arg):
                 i = 0
                 while i<int(arg):
                     channel.play(FFmpegPCMAudio(executable="C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe", source="C:\\Users\\Gabriel\\Desktop\\prog\\Python\\bemtevi.mp3"))
-                    time.sleep(1.4)
+                    time.sleep(1.45)
                     i += 1
                 await sair(channel)
             except:
